@@ -1,0 +1,39 @@
+body{
+    background-color: palevioletred;
+    background-image: url(image.jpg);
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+}
+*{
+    font-family: 'blackadder ITC';
+}
+strong{
+    font-weight: lighter;
+}
+h1{
+    text-align: left;
+    color:green;
+    display: block;
+    text-decoration: underline;
+    font-weight: bold;
+}
+h2{
+    text-decoration: overline;
+    font-weight: bolder;
+}
+h3{
+    text-decoration: line-through;
+    font-weight: lighter;
+}
+#begining,#second{
+    border: solid black;
+}
+.divtag1{
+    border: solid skyblue;
+}
+
+
+div{
+    border: solid purple;
+}

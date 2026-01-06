@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>E-Commerce UI</title>
+
+<!-- ================= CSS ================= -->
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f2f2f2;
+}
+
+/* NAVBAR */
+nav{
+    background:#2874f0;
+    color:white;
+    padding:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+}
+nav span{
+    font-weight:bold;
+}
+
+/* BANNER */
+.banner{
+    background:#ff9f00;
+    text-align:center;
+    padding:40px;
+    animation:fade 1s;
+}
+
+/* PRODUCTS */
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    padding:20px;
+    justify-content:center;
+}
+.card{
+    background:white;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 8px gray;
+    transition:transform 0.3s;
+}
+.card:hover{
+    transform:scale(1.05);
+}
+.card img{
+    width:100%;
+}
+
+/* BUTTON */
+button{
+    background:green;
+    color:white;
+    border:none;
+    padding:8px;
+    cursor:pointer;
+    width:100%;
+}
+button:hover{
+    background:darkgreen;
+}
+
+/* LOGIN */
+.login-box{
+    width:300px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    box-shadow:0 0 10px gray;
+}
+input{
+    width:100%;
+    margin:8px 0;
+    padding:8px;
+}
+
+/* ANIMATION */
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+<h2>ShopEasy</h2>
+<div>
+<a href="#" onclick="showHome()">Home</a>
+<a href="#" onclick="showProducts()">Products</a>
+<a href="#" onclick="showLogin()">Login</a>
+🛒 Cart: <span id="cartCount">0</span>
+</div>
+</nav>
+
+<!-- ================= HOME ================= -->
+<div id="home">
+<div class="banner">
+<h1>Big Sale 🎉</h1>
+<p>Up to 50% Off</p>
+</div>
+</div>
+
+<!-- ================= PRODUCTS ================= -->
+<div id="products" style="display:none;">
+<div class="products">
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Shirt</h3>
+<p>₹999</p>
+<button onclick="addToCart('Shirt',999)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Mobile</h3>
+<p>₹14999</p>
+<button onclick="addToCart('Mobile',14999)">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="https://via.placeholder.com/200">
+<h3>Laptop</h3>
+<p>₹49999</p>
+<button onclick="addToCart('Laptop',49999)">Add to Cart</button>
+</div>
+</div>
+</div>
+
+<!-- ================= LOGIN ================= -->
+<div id="login" style="display:none;">
+<div class="login-box">
+<h2>Login</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<p id="msg" style="color:red;"></p>
+</div>
+</div>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* Update Cart Count */
+function updateCart(){
+    let total = cart.reduce((sum,item)=>sum+item.qty,0);
+    document.getElementById("cartCount").innerText = total;
+}
+
+/* Add to Cart */
+function addToCart(name,price){
+    let item = cart.find(p=>p.name===name);
+    if(item){
+        item.qty++;
+    }else{
+        cart.push({name,price,qty:1});
+    }
+    localStorage.setItem("cart",JSON.stringify(cart));
+    updateCart();
+    alert("Item Added to Cart");
+}
+
+/* Login */
+function login(){
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("password").value;
+
+    if(email==="" || pass===""){
+        document.getElementById("msg").innerText="All fields required";
+        return;
+    }
+    localStorage.setItem("user",email);
+    alert("Login Successful");
+    showHome();
+}
+
+/* Page Navigation */
+function showHome(){
+    home.style.display="block";
+    products.style.display="none";
+    login.style.display="none";
+}
+function showProducts(){
+    home.style.display="none";
+    products.style.display="block";
+    login.style.display="none";
+}
+function showLogin(){
+    home.style.display="none";
+    products.style.display="none";
+    login.style.display="block";
+}
+
+updateCart();
+</script>
+
+</body>
+</html>
